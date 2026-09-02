@@ -4,9 +4,9 @@ local M = {}
 
 -- Register commands at module load time (not inside setup)
 -- This ensures they're available when lazy.nvim loads the plugin
-vim.api.nvim_create_user_command("PiOpen", function()
-  terminal.open()
-end, { desc = "Open Pi" })
+vim.api.nvim_create_user_command("PiOpen", function(opts)
+  terminal.open(opts.args ~= "" and opts.args or nil)
+end, { desc = "Open Pi", nargs = "?" })
 
 vim.api.nvim_create_user_command("PiSendSel", function()
   terminal.send_selection()

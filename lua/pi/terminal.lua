@@ -9,12 +9,12 @@ end
 local M = {}
 local term = nil -- window
 
-function M.open()
+function M.open(cmd)
   if term ~= nil and term:valid() then
     term:focus()
     return
   end
-  term = Snacks.terminal.open(config.opts.command, config.opts.terminal)
+  term = Snacks.terminal.open(cmd or config.opts.command, config.opts.terminal)
   for lhs, rhs in pairs(config.opts.keys) do
     vim.keymap.set("t", lhs, rhs, { buffer = term.buf })
   end
