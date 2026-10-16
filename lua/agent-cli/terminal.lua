@@ -1,8 +1,8 @@
-local config = require("pi.config")
+local config = require("agent-cli.config")
 
 local snacks_available, Snacks = pcall(require, "snacks")
 if not snacks_available then
-  vim.notify("pi.nvim: snacks.nvim is required", vim.log.levels.ERROR)
+  vim.notify("agent-cli.nvim: snacks.nvim is required", vim.log.levels.ERROR)
   return
 end
 
@@ -29,7 +29,7 @@ end
 
 function M.send_file()
   if term == nil or not term:valid() then
-    vim.notify("pi.nvim: no terminal opened", vim.log.levels.ERROR)
+    vim.notify("agent-cli.nvim: no terminal opened", vim.log.levels.ERROR)
     return
   end
 
@@ -46,7 +46,7 @@ end
 
 function M.send_selection()
   if term == nil or not term:valid() then
-    vim.notify("pi.nvim: no terminal opened", vim.log.levels.ERROR)
+    vim.notify("agent-cli.nvim: no terminal opened", vim.log.levels.ERROR)
     return
   end
 
