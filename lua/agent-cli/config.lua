@@ -7,7 +7,7 @@ local M = {}
 ---@field keys table<string, function|string> Buffer-local terminal mode keymaps applied only to agent-cli.nvim's terminal window (default: {})
 ---@field terminal SnacksTerminalOpts Snacks terminal options
 local defaults = {
-  commands = { "asb --cmd claude", "asb --cmd opencode" },
+  commands = { "pi" },
   keys = {},
   terminal = {
     interactive = true,
