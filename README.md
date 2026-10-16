@@ -95,7 +95,7 @@ require("agent-cli").setup({
 
 | Command | Description |
 |---------|-------------|
-| `:AgentOpen [cmd]` | Open a new agent CLI terminal (`cmd` skips the picker) |
+| `:AgentOpen [cmd]` | Open an agent CLI terminal, or focus it if already running (`cmd` skips the picker) |
 | `:AgentSendSel` | Send visual selection to Pi Agent |
 | `:AgentSendFile` | Send current file reference to Pi Agent (normal mode) |
 
@@ -114,7 +114,8 @@ is used when its `ui_select` option is enabled. `:AgentOpen <cmd>` skips the pic
 
 ### Multiple Terminals
 
-Each `:AgentOpen` opens a new terminal. The first one uses the `terminal.win` position. When a terminal is already
+Each agent CLI gets one terminal: if the chosen command is already running, `:AgentOpen` focuses its terminal.
+Otherwise it opens a new one. The first uses the `terminal.win` position. When another terminal is already
 open, you choose where the new one goes relative to the current agent terminal (or the last one used):
 **Left**, **Right**, **Split bottom** or **Split top**. The new window takes half of that terminal's space.
 

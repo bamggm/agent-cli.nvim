@@ -108,6 +108,14 @@ function M.open(cmd)
   cmd = cmd or commands[1]
 
   prune()
+  -- One terminal per program: reuse it instead of opening another
+  for _, t in ipairs(terms) do
+    if t.cmd == cmd then
+      focus(t)
+      return
+    end
+  end
+
   if #terms == 0 then
     spawn(cmd)
     return

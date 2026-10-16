@@ -34,8 +34,9 @@ terminal options: ~
 3. Commands                              *agent-cli.nvim-commands*
 
 :AgentOpen [cmd]                               *:AgentOpen*
-        Open a new agent CLI terminal. Without [cmd], opens the only entry
-        in `commands`, or shows a picker when there are several. When an
+        Open an agent CLI terminal. Without [cmd], opens the only entry
+        in `commands`, or shows a picker when there are several. Focuses the
+        terminal if that command is already running. When another
         agent terminal is already open, asks where to place the new one
         relative to the current (or last used) agent terminal: left, right,
         split bottom or split top.
