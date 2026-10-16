@@ -2,12 +2,12 @@ local M = {}
 
 ---Default configuration
 ---@class AgentCliConfig
----@field command string Pi CLI command (default: "pi")
+---@field commands string[] Agent CLI commands; `:AgentOpen` shows a picker when there is more than one (default: { "pi" })
 ---@field focus_on_sel boolean Focus terminal after sending selection (default: true)
 ---@field keys table<string, function|string> Buffer-local terminal mode keymaps applied only to agent-cli.nvim's terminal window (default: {})
 ---@field terminal SnacksTerminalOpts Snacks terminal options
 local defaults = {
-  command = "pi",
+  commands = { "asb --cmd claude", "asb --cmd opencode" },
   keys = {},
   terminal = {
     interactive = true,

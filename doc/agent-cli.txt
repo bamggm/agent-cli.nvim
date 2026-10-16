@@ -12,13 +12,14 @@ Requirements: Neovim >= 0.10, snacks.nvim, and the `pi` CLI command.
 
 >lua
 require("agent-cli").setup({
-  command = "pi",
+  commands = { "pi" },
   focus_on_sel = true,
 })
 <
 
 Options: ~
-  command       - Pi CLI command (default: "pi")
+  commands      - Agent CLI commands (default: { "pi" }). With more than one,
+                  |:AgentOpen| shows a picker (|vim.ui.select()|)
   focus_on_sel  - Focus terminal after sending selection (default: true)
   terminal      - snacks terminal options (see |snacks-terminal|)
 
@@ -32,8 +33,10 @@ terminal options: ~
 ==============================================================================
 3. Commands                              *agent-cli.nvim-commands*
 
-:AgentOpen                                     *:AgentOpen*
-        Open Pi Agent in terminal.
+:AgentOpen [cmd]                               *:AgentOpen*
+        Open an agent CLI in terminal. Without [cmd], opens the only entry
+        in `commands`, or shows a picker when there are several. Focuses the
+        terminal if it is already open.
 
 :AgentSendSel                                  *:AgentSendSel*
         Send visual selection to Pi Agent (visual mode only).

@@ -14,7 +14,18 @@ function M.open(cmd)
     term:focus()
     return
   end
-  term = Snacks.terminal.open(cmd or config.opts.command, config.opts.terminal)
+
+  local commands = config.opts.commands
+  if not cmd and #commands > 1 then
+    vim.ui.select(commands, { prompt = "Select agent CLI" }, function(choice)
+      if choice then
+        M.open(choice)
+      end
+    end)
+    return
+  end
+
+  term = Snacks.terminal.open(cmd or commands[1], config.opts.terminal)
   for lhs, rhs in pairs(config.opts.keys) do
     vim.keymap.set("t", lhs, rhs, { buffer = term.buf })
   end

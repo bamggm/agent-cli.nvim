@@ -5,6 +5,7 @@ A minimal Neovim plugin that integrates [Pi Agent](https://github.com/bamggm/pi.
 ## Features
 
 - **Interactive Terminal** - Open Pi Agent directly in Neovim
+- **Multiple Agents** - Configure several agent CLIs and pick one when opening the terminal
 - **Send Visual Selections** - Select code in visual mode and send it to Pi Agent with file context (e.g., `@lua/agent-cli/init.lua#L1-15`)
 - **Send File Context** - In normal mode, send the current file reference to Pi Agent (e.g., `@lua/agent-cli/init.lua`)
 
@@ -61,7 +62,7 @@ Use agent-cli.nvim's `keys` option to set terminal keymaps (scoped to the snacks
 
 ```lua
 require("agent-cli").setup({
-  command = "pi",           -- Pi CLI command
+  commands = { "pi" },      -- Agent CLI commands (picker shown when more than one)
   focus_on_sel = true,      -- Focus terminal after sending selection
   keys = {},                -- Buffer-local terminal mode keymaps
 
@@ -82,7 +83,7 @@ require("agent-cli").setup({
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `command` | string | `"pi"` | Pi CLI command |
+| `commands` | string[] | `{ "pi" }` | Agent CLI commands. With more than one, `:AgentOpen` shows a picker |
 | `focus_on_sel` | boolean | `true` | Focus terminal after sending selection |
 | `keys` | table | `{}` | Buffer-local terminal mode keymaps (e.g. `{ ["<C-h>"] = fn }`) |
 | `terminal` | table | (see above) | snacks terminal options |
@@ -93,9 +94,23 @@ require("agent-cli").setup({
 
 | Command | Description |
 |---------|-------------|
-| `:AgentOpen` | Open Pi Agent in a terminal window |
+| `:AgentOpen [cmd]` | Open an agent CLI in a terminal window (`cmd` skips the picker) |
 | `:AgentSendSel` | Send visual selection to Pi Agent |
 | `:AgentSendFile` | Send current file reference to Pi Agent (normal mode) |
+
+### Choosing an Agent
+
+List the agent CLIs you use in `commands`:
+
+```lua
+opts = {
+  commands = { "pi", "claude", "codex" },
+},
+```
+
+`:AgentOpen` then shows a picker to choose which one to launch. It uses `vim.ui.select`, so snacks.nvim's picker
+is used when its `ui_select` option is enabled. `:AgentOpen <cmd>` skips the picker (e.g. `:AgentOpen claude --continue`).
+Only one agent terminal is open at a time; while it is open, `:AgentOpen` focuses it.
 
 ### Sending Code to Pi Agent
 
