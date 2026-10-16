@@ -34,12 +34,19 @@ terminal options: ~
 3. Commands                              *agent-cli.nvim-commands*
 
 :AgentOpen [cmd]                               *:AgentOpen*
-        Open an agent CLI in terminal. Without [cmd], opens the only entry
-        in `commands`, or shows a picker when there are several. Focuses the
-        terminal if it is already open.
+        Open a new agent CLI terminal. Without [cmd], opens the only entry
+        in `commands`, or shows a picker when there are several. When an
+        agent terminal is already open, asks where to place the new one
+        relative to the current (or last used) agent terminal: left, right,
+        split bottom or split top.
 
 :AgentSendSel                                  *:AgentSendSel*
-        Send visual selection to Pi Agent (visual mode only).
+        Send visual selection to Pi Agent (visual mode only). With several
+        agent terminals open, shows a picker to choose the target.
+
+:AgentSendFile                                 *:AgentSendFile*
+        Send the current file reference to Pi Agent. With several agent
+        terminals open, shows a picker to choose the target.
 
 ==============================================================================
 4. Keys                                  *agent-cli.nvim-keys*

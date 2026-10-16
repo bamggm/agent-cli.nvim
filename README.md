@@ -6,6 +6,7 @@ A minimal Neovim plugin that integrates [Pi Agent](https://github.com/bamggm/pi.
 
 - **Interactive Terminal** - Open Pi Agent directly in Neovim
 - **Multiple Agents** - Configure several agent CLIs and pick one when opening the terminal
+- **Multiple Terminals** - Open several agent terminals side by side or stacked, and pick which one receives sent code
 - **Send Visual Selections** - Select code in visual mode and send it to Pi Agent with file context (e.g., `@lua/agent-cli/init.lua#L1-15`)
 - **Send File Context** - In normal mode, send the current file reference to Pi Agent (e.g., `@lua/agent-cli/init.lua`)
 
@@ -94,7 +95,7 @@ require("agent-cli").setup({
 
 | Command | Description |
 |---------|-------------|
-| `:AgentOpen [cmd]` | Open an agent CLI in a terminal window (`cmd` skips the picker) |
+| `:AgentOpen [cmd]` | Open a new agent CLI terminal (`cmd` skips the picker) |
 | `:AgentSendSel` | Send visual selection to Pi Agent |
 | `:AgentSendFile` | Send current file reference to Pi Agent (normal mode) |
 
@@ -110,7 +111,15 @@ opts = {
 
 `:AgentOpen` then shows a picker to choose which one to launch. It uses `vim.ui.select`, so snacks.nvim's picker
 is used when its `ui_select` option is enabled. `:AgentOpen <cmd>` skips the picker (e.g. `:AgentOpen claude --continue`).
-Only one agent terminal is open at a time; while it is open, `:AgentOpen` focuses it.
+
+### Multiple Terminals
+
+Each `:AgentOpen` opens a new terminal. The first one uses the `terminal.win` position. When a terminal is already
+open, you choose where the new one goes relative to the current agent terminal (or the last one used):
+**Left**, **Right**, **Split bottom** or **Split top**. The new window takes half of that terminal's space.
+
+Terminals are numbered in their winbar (`1: ...`, `2: ...`). With more than one open, `:AgentSendSel` and
+`:AgentSendFile` show a picker to choose the target, with the last-used terminal listed first.
 
 ### Sending Code to Pi Agent
 
